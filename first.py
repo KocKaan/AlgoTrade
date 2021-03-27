@@ -1,9 +1,11 @@
 import pandas as pd
+import numpy as np
 from alpha_vantage.timeseries import TimeSeries
 import time
 from alpha_vantage.techindicators import TechIndicators
 import matplotlib.pyplot as plt
 
+pd.set_option('display.max_rows', None)
 api_key= 'K83K1D6UT8N973SA'
 stock_symbol = input("Enter stock shortcut:")
 stock_symbol.upper()
@@ -26,12 +28,15 @@ data_frame2.index= data_frame1.index
 total_data_frame = pd.concat([data_frame1,data_frame2],axis =1)
 
 
-total_data_frame.loc[total_data_frame['SMA']+1<total_data_frame['4. close'], 'Option']='buy'
-total_data_frame.loc[total_data_frame['SMA']>total_data_frame['4. close']+1, 'Option']='sell'
-total_data_frame.loc[(total_data_frame['SMA']+1>total_data_frame['4. close']) & (total_data_frame['SMA']<total_data_frame['4. close']+1), 'Option']='hold'
-option_data_frame=total_data_frame['Option']
+total_data_frame.loc[total_data_frame['SMA']+1<total_data_frame['4. close'], 'Signal']=1.0
+total_data_frame.loc[total_data_frame['SMA']>total_data_frame['4. close']+1, 'Signal']=0.0
+total_data_frame.loc[(total_data_frame['SMA']+1>total_data_frame['4. close']) & (total_data_frame['SMA']<total_data_frame['4. close']+1), 'Signal']=np.nan
+total_data_frame['position']= total_data_frame['Signal'].diff()
 
-total_data_frame.plot()
+#option_data_frame['position']=option_data_frame['Option'].diff()
 
-plt.title( stock_symbol + " simple moving average")
-plt.show()
+print(total_data_frame)
+#total_data_frame.plot()
+
+#plt.title( stock_symbol + " simple moving average")
+#plt.show()
