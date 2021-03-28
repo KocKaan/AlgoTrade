@@ -4,6 +4,7 @@ from alpha_vantage.timeseries import TimeSeries
 import time
 from alpha_vantage.techindicators import TechIndicators
 import matplotlib.pyplot as plt
+#buys when sma60 is more than sma120. sells otherwise
 
 pd.set_option('display.max_rows', None)
 api_key= 'K83K1D6UT8N973SA'
@@ -47,12 +48,16 @@ total_data_frame[['SMA 60min', 'SMA 120min','close']].plot(ax=ax1, lw=2.)
 
 
 # Plot the buy signals
-print(total_data_frame.loc[total_data_frame.position == 1.0].index,
-         total_data_frame['SMA 60min'][total_data_frame.position== 1.0])
+ax1.plot(total_data_frame.loc[total_data_frame.position == 1.0].index,
+         total_data_frame['SMA 60min'][total_data_frame.position== 1.0],'^', markersize=10, color='m')
 
-# Plot the sell signals
-#ax1.plot(signals.loc[signals.positions == -1.0].index,signals.short_mavg[signals.positions == -1.0],
-#         'v', markersize=10, color='k')
+#Plot the sell signals
+ax1.plot(total_data_frame.loc[total_data_frame.position == -1.0].index,
+total_data_frame['SMA 60min'][total_data_frame.position == -1.0],'v', markersize=10, color='k')
+
+print(total_data_frame.head(20))
+
+
+print(positions.head(100))
+
 plt.show()
-
-#print(total_data_frame.head(200))
