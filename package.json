@@ -1,0 +1,23 @@
+{
+  "name": "Algo",
+  "version": "1.0.0",
+  "description": "Date: 22 March 2021",
+  "main": "simple-sma-backtest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KocKaan/AlgoTrade.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KocKaan/AlgoTrade/issues"
+  },
+  "homepage": "https://github.com/KocKaan/AlgoTrade#readme",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
